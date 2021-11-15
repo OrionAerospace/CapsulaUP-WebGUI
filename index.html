@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Orion - Capsula Up! - Interface de telemetria web - alpha</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.1.1/css/ol.css" type="text/css">
+
+    <link rel="stylesheet" href="css/ol3-sidebar.css" />
+
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        html, body, #map {
+            height: 100%;
+            font: 10pt "Helvetica Neue", Arial, Helvetica, sans-serif;
+        }
+        .sidebar{
+            width: 40%;
+        }
+    </style>
+</head>
+<body>
+    <div id="sidebar" class="sidebar collapsed">
+       
+        <div class="sidebar-tabs">
+            <ul role="tablist">
+                <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+                <li><a href="#spot" role="tab"><i class="fa fa-map-marker"></i></a></li>
+            </ul>
+        </div>
+        
+        <div class="sidebar-content">
+            <div class="sidebar-pane" id="home">
+                <h1 class="sidebar-header">
+                    Telemetria
+                    <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+            </div>
+
+            <div class="sidebar-pane" id="home">
+                <label for="telemetryUrl">Url da telemetria</label><br>
+                <input type="text" id="telemetryUrl">
+            </div>
+
+            <div class="sidebar-pane" id="home">
+                <label for="telemetryDate">Data da telemetria</label><br>
+                <input type="date" id="telemetryDate">
+                <button id="startTelemetry">Telemetria</button>
+            </div>
+
+            <div class="sidebar-pane" id="home" style="overflow:scroll; height: 70%;">
+                <div id ="telemetryDiv" style="white-space: pre;">
+                </div>
+            </div>
+            
+            <div class="sidebar-pane" id="spot">
+                <h1 class="sidebar-header">
+                    Spot GPS
+                    <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+            </div>
+
+            <div class="sidebar-pane" id="spot">
+                <label>Código feed do spot</label><br><br>
+                <input>
+            </div>
+
+            <div class="sidebar-pane" id="spot">
+                <button id="startSpot">Começar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="map" class="sidebar-map"></div>
+
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.1.1/build/ol.js"></script>
+    <script src="javascript/ol3-sidebar.js"></script>
+    <script src="javascript/main.js"></script>
+</body>
+</html>
