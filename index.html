@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Orion - Capsula Up! - Interface de telemetria web - alpha</title>
+    <title>Orion - Capsula Up! - Interface de telemetria web - alpha version</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
 
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.1.1/css/ol.css" type="text/css">
 
     <link rel="stylesheet" href="css/ol3-sidebar.css" />
 
+    <link rel="stylesheet" href="css/custom.css"/>
     <style>
         body {
             padding: 0;
@@ -26,6 +27,13 @@
         .sidebar{
             width: 40%;
         }
+        @media (max-width: 991px) {
+            .sidebar {
+            width: 80%; } 
+        }    
+        .sidebar-tabs > li, .sidebar-tabs > ul > li {
+            font-size: 15pt;
+        }
     </style>
 </head>
 <body>
@@ -34,7 +42,8 @@
         <div class="sidebar-tabs">
             <ul role="tablist">
                 <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
-                <li><a href="#spot" role="tab"><i class="fa fa-map-marker"></i></a></li>
+                <li><a href="#spot" role="tab"><i class="fa fa-map-marker-alt"></i></a></li>
+                <li><a href="#pred" role="tab"><i class="fa fa-route"></i></a></li>
             </ul>
         </div>
         
@@ -43,6 +52,10 @@
                 <h1 class="sidebar-header">
                     Telemetria
                     <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                    <label class="switch">
+                        <input type="checkbox" id="telemetryShow" checked>
+                        <span class="slider round"></span>
+                    </label>
                 </h1>
             </div>
 
@@ -66,23 +79,82 @@
                 <h1 class="sidebar-header">
                     Spot GPS
                     <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                    <label class="switch">
+                        <input type="checkbox" id="spotShow" checked>
+                        <span class="slider round"></span>
+                    </label>
                 </h1>
             </div>
 
             <div class="sidebar-pane" id="spot">
                 <label>Código feed do spot</label><br><br>
-                <input>
+                <input id="spotFeedId">
             </div>
 
             <div class="sidebar-pane" id="spot">
                 <button id="startSpot">Começar</button>
             </div>
+
+            <div class="sidebar-pane" id="pred">
+                <h1 class="sidebar-header">
+                    Predição de trajeto
+                    <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                    <label class="switch">
+                        <input type="checkbox" id="predShow" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </h1>
+            </div>
+
+            <div class="sidebar-pane" id="pred">
+                <label for="predDate">Data de lançamento</label><br>
+                <input type="date" id="predDate">
+            </div>
+
+            <div class="sidebar-pane" id="pred">
+                <label for="predLat">Latitude de lançamento</label><br>
+                <input id="predLat">
+            </div>
+
+            <div class="sidebar-pane" id="pred">
+                <label for="predLon">Longitude de lançamento</label><br>
+                <input id="predLon">
+            </div>
+
+            <div class="sidebar-pane" id="pred">
+                <label for="predAlt">Altitude de lançamento</label><br>
+                <input id="predAlt">
+            </div>
+
+            <div class="sidebar-pane" id="pred">
+                <label for="predAs">Taxa de ascenção</label><br>
+                <input id="predAs">
+            </div>
+
+            <div class="sidebar-pane" id="pred">
+                <label for="predEx">Altura da explosão</label><br>
+                <input id="predEx">
+            </div>
+
+            <div class="sidebar-pane" id="pred">
+                <label for="predDes">Taxa de declínio</label><br>
+                <input id="predDes">
+            </div>
+
+            <div class="sidebar-pane" id="pred">
+                <button id="makePred">Predição</button>
+            </div>
         </div>
     </div>
 
     <div id="map" class="sidebar-map"></div>
-
+    <div id="popup" class="ol-popup">
+        <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+        <div id="popup-content"></div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.1.1/build/ol.js"></script>
+    <script src="javascript/require.js"></script>
     <script src="javascript/ol3-sidebar.js"></script>
     <script src="javascript/main.js"></script>
 </body>
